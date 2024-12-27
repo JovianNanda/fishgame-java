@@ -1,4 +1,4 @@
-package fishingrod;
+package FishingRod;
 
 abstract public class FishingRod {
 

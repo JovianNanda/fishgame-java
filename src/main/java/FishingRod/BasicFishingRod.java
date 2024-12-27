@@ -1,4 +1,4 @@
-package fishingrod;
+package FishingRod;
 
 public class BasicFishingRod extends FishingRod {
 
