@@ -28,7 +28,7 @@ abstract public class Fish {
     }
 
     public String getGrade() {
-        return this.grade.toString();
+        return grade.toString();
     }
 
     public void setName(String name) {

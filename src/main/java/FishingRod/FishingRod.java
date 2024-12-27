@@ -1,4 +1,4 @@
-package FishingRod;
+package fishingrod;
 
 abstract public class FishingRod {
 
@@ -38,8 +38,8 @@ abstract public class FishingRod {
         return price;
     }
 
-    public FishingRodGrade getGrade() {
-        return grade;
+    public String getGrade() {
+        return grade.toString();
     }
 
 }

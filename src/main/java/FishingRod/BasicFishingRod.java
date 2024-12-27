@@ -1,8 +1,8 @@
-package FishingRod;
+package fishingrod;
 
 public class BasicFishingRod extends FishingRod {
 
-    public BasicFishingRod(String name, int price, FishingRodGrade grade) {
+    public BasicFishingRod() {
         super("Basic Fishing Rod", 10, FishingRodGrade.BASIC);
     }
 }
