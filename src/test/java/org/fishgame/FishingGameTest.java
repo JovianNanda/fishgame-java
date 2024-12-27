@@ -16,7 +16,6 @@ public class FishingGameTest {
         assertTrue(fishingGame.getGrid().length > 0, "Grid should not be empty");
     }
 
-
     @Test
     public void testDisplayGrid() {
         fishingGame.populateGrid();
