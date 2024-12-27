@@ -45,7 +45,7 @@ public class FishingGame {
     }
 
     // Mengisi grid dengan ikan di posisi acak
-    private void populateGrid() {
+    void populateGrid() {
         Random random = new Random();
         int fishRow = random.nextInt(2); // Baris acak
         int fishCol = random.nextInt(3); // Kolom acak
@@ -66,6 +66,10 @@ public class FishingGame {
             }
             System.out.println();
         }
+    }
+
+    public String[][] getGrid() {
+        return fishingGrid;
     }
 
     public static void main(String[] args) {
