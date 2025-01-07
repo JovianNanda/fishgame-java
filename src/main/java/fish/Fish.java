@@ -1,8 +1,5 @@
 package fish;
 
-import java.util.Collections;
-import java.util.List;
-
 abstract public class Fish {
 
     public enum FishGrade {
@@ -12,11 +9,13 @@ abstract public class Fish {
     private String name;
     private Integer gold;
     private FishGrade grade;
-
-    public Fish(String name, Integer gold, FishGrade grade) {
+    private Integer chance;
+    
+    public Fish(String name, Integer gold, FishGrade grade, Integer chance) {
         this.name = name;
         this.gold = gold;
         this.grade = grade;
+        this.chance = chance;
     }
 
     public String getName() {
@@ -31,6 +30,10 @@ abstract public class Fish {
         return grade.toString();
     }
 
+    public Integer getChance() {
+        return chance;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -41,6 +44,10 @@ abstract public class Fish {
 
     public void setGrade(FishGrade grade) {
         this.grade = grade;
+    }
+
+    public void setChance (Integer chance){
+        this.chance = chance;
     }
 
 
