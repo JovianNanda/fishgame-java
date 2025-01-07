@@ -131,23 +131,34 @@ public class FishingGame {
 
         if (Objects.equals(game.displayMenu(), "1")) {
             game.displayGrid();
+            int attempt = 3;
+            boolean fishCaught = false;
 
-            System.out.print("Where to throw your hook : ");
-            String chooseGrid = scanner.nextLine();
+            while (attempt > 0 && !fishCaught) {
+                System.out.print("Where to throw your hook : ");
+                String chooseGrid = scanner.nextLine();
+                int[] grid = chooseGridValidation(chooseGrid);
+                if (grid == null) {
+                    System.out.println("Invalid input. Please enter a valid grid location.");
+                    continue;
+                }
+                int row = grid[0];
+                int col = grid[1];
 
-            int[] grid = game.chooseGridValidation(chooseGrid);
-            int row = grid[0];
-            int col = grid[1];
-
-            if (game.getGrid()[row][col].equals("[F]")) {
-                System.out.println("You got a " + fishInGrid.getName() + "!");
-                game.gold += fishInGrid.getGold();
-            } else {
-                System.out.println("You got nothing!");
-                game.gold -= 5;
+                if (game.getGrid()[row][col].equals("[F]")) {
+                    System.out.println("You got a " + fishInGrid.getName() + "!");
+                    gold += fishInGrid.getGold();
+                    System.out.println("You Got Gold: " + gold);
+                    fishCaught = true;
+                } else {
+                    attempt--;
+                    System.out.println("You got nothing!, Retry attempt " + attempt);
+                    if (attempt == 0) {
+                        gold -= 5;
+                        System.out.println("Gold: " + gold);
+                    }
+                }
             }
-            System.out.println("Gold: " + game.gold);
-
         }
     }
 
