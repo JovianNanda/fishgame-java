@@ -1,4 +1,4 @@
-package FishingRod;
+package fishingrod;
 
 public class GoldFishingRod extends FishingRod {
 
