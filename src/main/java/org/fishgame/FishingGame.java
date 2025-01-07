@@ -18,19 +18,15 @@ public class FishingGame {
     private final String[][] fishingGrid;
     private int gold;
     private final Scanner scanner = new Scanner(System.in);
-    int fishingGridRow = 2;
-    int fishingGridCol = 3;
+    private final int fishingGridRow = 2;
+    private final int fishingGridCol = 3;
     private Fish fishInGrid;
 
     public FishingGame() {
         this.fishingGrid = new String[fishingGridRow][fishingGridCol]; // Ukuran grid 2x3
         this.gold = 20; // Inisialisasi gold
-        initializeGame(); // Initialize game state
     }
 
-    private void initializeGame() {
-        populateGrid(); // Mengisi grid dengan ikan
-    }
 
     // Display Menu
     public String displayMenu() {
@@ -84,7 +80,7 @@ public class FishingGame {
         for (int i = 0; i < fishingGrid.length; i++) {
             System.out.print("[" + (i + 1) + "]");
             for (int j = 0; j < fishingGrid[i].length; j++) {
-                System.out.print(fishingGrid[i][j]); // Menampilkan isi grid
+                System.out.print("[ ]");
             }
             System.out.println();
         }
@@ -127,36 +123,33 @@ public class FishingGame {
     }
 
     public void fishing() {
-        FishingGame game = new FishingGame();
+        populateGrid();
+        displayGrid();
+        int attempt = 3;
+        boolean fishCaught = false;
 
-        if (Objects.equals(game.displayMenu(), "1")) {
-            game.displayGrid();
-            int attempt = 3;
-            boolean fishCaught = false;
+        while (attempt > 0 && !fishCaught) {
+            System.out.print("Where to throw your hook : ");
+            String chooseGrid = scanner.nextLine();
+            int[] grid = chooseGridValidation(chooseGrid);
+            if (grid == null) {
+                System.out.println("Invalid input. Please enter a valid grid location.");
+                continue;
+            }
+            int row = grid[0];
+            int col = grid[1];
 
-            while (attempt > 0 && !fishCaught) {
-                System.out.print("Where to throw your hook : ");
-                String chooseGrid = scanner.nextLine();
-                int[] grid = chooseGridValidation(chooseGrid);
-                if (grid == null) {
-                    System.out.println("Invalid input. Please enter a valid grid location.");
-                    continue;
-                }
-                int row = grid[0];
-                int col = grid[1];
-
-                if (game.getGrid()[row][col].equals("[F]")) {
-                    System.out.println("You got a " + fishInGrid.getName() + "!");
-                    gold += fishInGrid.getGold();
-                    System.out.println("You Got Gold: " + gold);
-                    fishCaught = true;
-                } else {
-                    attempt--;
-                    System.out.println("You got nothing!, Retry attempt " + attempt);
-                    if (attempt == 0) {
-                        gold -= 5;
-                        System.out.println("Gold: " + gold);
-                    }
+            if (fishingGrid[row][col].equals("[F]")) {
+                System.out.println("You got a " + fishInGrid.getName() + "!" + " Grade: " + fishInGrid.getGrade());
+                gold += fishInGrid.getGold();
+                System.out.println("You Got Gold: " + gold);
+                fishCaught = true;
+            } else {
+                attempt--;
+                System.out.println("You got nothing!, Retry attempt " + attempt);
+                if (attempt == 0) {
+                    gold -= 5;
+                    System.out.println("Gold: " + gold);
                 }
             }
         }
@@ -164,7 +157,18 @@ public class FishingGame {
 
     public static void main(String[] args) {
         FishingGame game = new FishingGame();
-        game.fishing(); // Menampilkan isi grid
+        while (true) {
+            String choice = game.displayMenu();
+            if (Objects.equals(choice, "1")) {
+                game.fishing();
+            } else if (Objects.equals(choice, "2")) {
+                System.out.println("Shop is not implemented yet.");
+            } else if (Objects.equals(choice, "3")) {
+                break;
+            } else {
+                System.out.println("Invalid choice. Please select again.");
+            }
+        }
         game.scanner.close();
     }
 
