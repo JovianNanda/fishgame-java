@@ -1,23 +1,36 @@
 package org.fishgame;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
+
+import fish.CatFish;
+import fish.CommonCarp;
+import fish.Fish;
+import fish.RedSnapper;
+import fish.Swordfish;
+import fish.Tuna;
 
 public class FishingGame {
 
     private final String[][] fishingGrid;
     private int gold;
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
     int fishingGridRow = 2;
     int fishingGridCol = 3;
+    private Fish fishInGrid;
 
     public FishingGame() {
         this.fishingGrid = new String[fishingGridRow][fishingGridCol]; // Ukuran grid 2x3
         this.gold = 20; // Inisialisasi gold
-        populateGrid(); // Mengisi grid dengan ikan
+        initializeGame(); // Initialize game state
     }
 
+    private void initializeGame() {
+        populateGrid(); // Mengisi grid dengan ikan
+    }
 
     // Display Menu
     public String displayMenu() {
@@ -32,17 +45,33 @@ public class FishingGame {
         return choice;
     }
 
+    // Method to get a random fish
+    private Fish getRandomFish() {
+        List<Fish> fishList = new ArrayList<>();
+        fishList.add(new CommonCarp());
+        fishList.add(new CatFish());
+        fishList.add(new Tuna());
+        fishList.add(new Swordfish());
+        fishList.add(new RedSnapper());
+
+        Random random = new Random();
+        return fishList.get(random.nextInt(fishList.size()));
+    }
+
     // Mengisi grid dengan ikan di posisi acak
     void populateGrid() {
         Random random = new Random();
         int fishRow = random.nextInt(fishingGridRow); // Baris acak
         int fishCol = random.nextInt(fishingGridCol);
+
+        fishInGrid = getRandomFish();
+
         for (String[] row : fishingGrid) {
             for (int j = 0; j < row.length; j++) {
                 row[j] = "[ ]"; // Semua kotak kosong
             }
         }
-        fishingGrid[fishRow][fishCol] = "[\uD80C\uDD9F]"; // Tempatkan ikan
+        fishingGrid[fishRow][fishCol] = "[F]"; // Tempatkan ikan dengan logo F
     }
 
     // Menampilkan isi grid
@@ -55,7 +84,7 @@ public class FishingGame {
         for (int i = 0; i < fishingGrid.length; i++) {
             System.out.print("[" + (i + 1) + "]");
             for (int j = 0; j < fishingGrid[i].length; j++) {
-                System.out.print("[ ]"); // Menampilkan isi grid
+                System.out.print(fishingGrid[i][j]); // Menampilkan isi grid
             }
             System.out.println();
         }
@@ -84,7 +113,7 @@ public class FishingGame {
             int colNum = col - 'A';
             row = row - 1;
 
-            if(row >= 0 && row < fishingGridRow && colNum >= 0 && colNum < fishingGridCol){
+            if (row >= 0 && row < fishingGridRow && colNum >= 0 && colNum < fishingGridCol) {
                 return new int[]{row, colNum};
             } else {
                 System.out.println("Invalid input. Please enter a valid grid location.");
@@ -97,8 +126,7 @@ public class FishingGame {
         }
     }
 
-
-    public void fishing(){
+    public void fishing() {
         FishingGame game = new FishingGame();
 
         if (Objects.equals(game.displayMenu(), "1")) {
@@ -111,9 +139,9 @@ public class FishingGame {
             int row = grid[0];
             int col = grid[1];
 
-            if (game.getGrid()[row][col].equals("[\uD80C\uDD9F]")) {
-                System.out.println("You got a fish!");
-                game.gold += 10;
+            if (game.getGrid()[row][col].equals("[F]")) {
+                System.out.println("You got a " + fishInGrid.getName() + "!");
+                game.gold += fishInGrid.getGold();
             } else {
                 System.out.println("You got nothing!");
                 game.gold -= 5;
