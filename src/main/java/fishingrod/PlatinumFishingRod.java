@@ -2,6 +2,6 @@ package fishingrod;
 
 public class PlatinumFishingRod extends FishingRod {
     public PlatinumFishingRod() {
-        super("Platinum Fishing Rod", 65, FishingRodGrade.PLATINUM);
+        super("Platinum Fishing Rod", 500, FishingRodGrade.PLATINUM);
     }
 }
