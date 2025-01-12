@@ -27,7 +27,6 @@ public class FishingGame {
         this.gold = 20; // Inisialisasi gold
     }
 
-
     // Display Menu
     public String displayMenu() {
         System.out.println("\n=== Menu Fishing Game ===");
@@ -44,14 +43,21 @@ public class FishingGame {
     // Method to get a random fish
     private Fish getRandomFish() {
         List<Fish> fishList = new ArrayList<>();
-        fishList.add(new CommonCarp());
-        fishList.add(new CatFish());
-        fishList.add(new Tuna());
-        fishList.add(new Swordfish());
-        fishList.add(new RedSnapper());
+        fishList.add(new CommonCarp()); // 60%
+        fishList.add(new CatFish());    // 20%
+        fishList.add(new Tuna());       // 10%
+        fishList.add(new Swordfish());  // 5%
+        fishList.add(new RedSnapper()); // 15%
+
+        List<Fish> weightedFishList = new ArrayList<>();
+        for (Fish fish : fishList) {
+            for (int i = 0; i < fish.getChance(); i++) {
+                weightedFishList.add(fish); // Menambahkan ikan ke dalam daftar sesuai nilai chance
+            }
+        }
 
         Random random = new Random();
-        return fishList.get(random.nextInt(fishList.size()));
+        return weightedFishList.get(random.nextInt(weightedFishList.size()));
     }
 
     // Mengisi grid dengan ikan di posisi acak
@@ -80,7 +86,7 @@ public class FishingGame {
         for (int i = 0; i < fishingGrid.length; i++) {
             System.out.print("[" + (i + 1) + "]");
             for (int j = 0; j < fishingGrid[i].length; j++) {
-                System.out.print("[ ]");
+                System.out.print(fishingGrid[i][j]);
             }
             System.out.println();
         }
@@ -129,7 +135,7 @@ public class FishingGame {
         boolean fishCaught = false;
 
         while (attempt > 0 && !fishCaught) {
-            System.out.print("Where to throw your hook : ");
+            System.out.print("Where to throw your hook: ");
             String chooseGrid = scanner.nextLine();
             int[] grid = chooseGridValidation(chooseGrid);
             if (grid == null) {
@@ -140,15 +146,16 @@ public class FishingGame {
             int col = grid[1];
 
             if (fishingGrid[row][col].equals("[F]")) {
+                fishInGrid = getRandomFish(); // Dapatkan ikan acak berdasarkan chance
                 System.out.println("You got a " + fishInGrid.getName() + "!" + " Grade: " + fishInGrid.getGrade());
                 gold += fishInGrid.getGold();
-                System.out.println("You Got Gold: " + gold);
+                System.out.println("You earned Gold: " + gold);
                 fishCaught = true;
             } else {
                 attempt--;
-                System.out.println("You got nothing!, Retry attempt " + attempt);
+                System.out.println("You got nothing! Retry attempts left: " + attempt);
                 if (attempt == 0) {
-                    gold -= 5;
+                    gold -= 5; // Penalti jika tidak menangkap ikan
                     System.out.println("Gold: " + gold);
                 }
             }
