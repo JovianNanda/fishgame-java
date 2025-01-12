@@ -13,6 +13,7 @@ import fish.RedSnapper;
 import fish.Swordfish;
 import fish.Tuna;
 
+
 public class FishingGame {
 
     private final String[][] fishingGrid;
@@ -21,6 +22,8 @@ public class FishingGame {
     private final int fishingGridRow = 2;
     private final int fishingGridCol = 3;
     private Fish fishInGrid;
+
+    private Shop shop = new Shop();
 
     public FishingGame() {
         this.fishingGrid = new String[fishingGridRow][fishingGridCol]; // Ukuran grid 2x3
@@ -161,6 +164,18 @@ public class FishingGame {
             }
         }
     }
+    
+    public void shopMenu() {
+        System.out.print("\nYour Current Gold: " + gold);
+        shop.displayFishingRods();
+        System.out.print("Choose a fishing rod to buy: ");
+        int choice = Integer.parseInt(scanner.nextLine());
+        boolean success = shop.purchaseFishingRod(choice, gold);
+        if (success) {
+            gold -= shop.getFishingRodList().get(choice - 1).getPrice();
+            System.out.println("Gold left: " + gold);
+        }
+    }
 
     public static void main(String[] args) {
         FishingGame game = new FishingGame();
@@ -169,7 +184,7 @@ public class FishingGame {
             if (Objects.equals(choice, "1")) {
                 game.fishing();
             } else if (Objects.equals(choice, "2")) {
-                System.out.println("Shop is not implemented yet.");
+                game.shopMenu();
             } else if (Objects.equals(choice, "3")) {
                 break;
             } else {
