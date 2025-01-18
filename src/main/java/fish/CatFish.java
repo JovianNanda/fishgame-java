@@ -2,6 +2,6 @@ package fish;
 
 public class CatFish extends Fish {
     public CatFish() {
-        super("Cat Fish", 20, FishGrade.UNCOMMON, 30);
+        super("Cat Fish", 20, FishGrade.UNCOMMON, 20);
     }
 }

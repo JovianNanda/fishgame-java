@@ -1,0 +1,4 @@
+gold=1450
+rod=Basic Fishing Rod,1,BASIC
+rod=Gold Fishing Rod,2,GOLD
+equipped=Gold Fishing Rod,2,GOLD
