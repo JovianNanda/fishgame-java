@@ -28,7 +28,7 @@ public class FishingGame {
 
     public FishingGame() {
         this.fishingGrid = new String[fishingGridRow][fishingGridCol]; // Ukuran grid 2x3
-        this.gold = 1000; // Inisialisasi gold
+        this.gold = 20; // Inisialisasi gold
     }
 
     // Display Menu
@@ -80,7 +80,7 @@ public class FishingGame {
         for (int i = 0; i < inventory.getEquippedFishingRod().getChance(); i++) {
             int fishRow = random.nextInt(fishingGridRow);
             int fishCol = random.nextInt(fishingGridCol);
-            fishingGrid[fishRow][fishCol] = "[F]";
+            fishingGrid[fishRow][fishCol] = "[ ]";
         }
 
     }
