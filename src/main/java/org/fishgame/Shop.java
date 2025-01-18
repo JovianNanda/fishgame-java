@@ -3,7 +3,6 @@ package org.fishgame;
 import java.util.ArrayList;
 import java.util.List;
 
-import fishingrod.BasicFishingRod;
 import fishingrod.DiamondFishingRod;
 import fishingrod.FishingRod;
 import fishingrod.GoldFishingRod;
@@ -15,7 +14,6 @@ public class Shop {
 
     public Shop() {
         this.fishingRodList = new ArrayList<>();
-        fishingRodList.add(new BasicFishingRod());
         fishingRodList.add(new GoldFishingRod());
         fishingRodList.add(new PlatinumFishingRod());
         fishingRodList.add(new DiamondFishingRod());

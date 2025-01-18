@@ -28,13 +28,14 @@ public class FishingGame {
 
     public FishingGame() {
         this.fishingGrid = new String[fishingGridRow][fishingGridCol]; // Ukuran grid 2x3
-        this.gold = 20; // Inisialisasi gold
+        this.gold = 1000; // Inisialisasi gold
     }
 
     // Display Menu
     public String displayMenu() {
         System.out.println("\n=== Menu Fishing Game ===");
         System.out.println("Gold: " + gold);
+        System.out.println("Fishing Rod: " + inventory.getEquippedFishingRod().getName());
         System.out.println("1. Fishing");
         System.out.println("2. Shop");
         System.out.println("3. Inventory");
@@ -68,9 +69,6 @@ public class FishingGame {
     // Mengisi grid dengan ikan di posisi acak
     void populateGrid() {
         Random random = new Random();
-        int fishRow = random.nextInt(fishingGridRow); // Baris acak
-        int fishCol = random.nextInt(fishingGridCol);
-
         fishInGrid = getRandomFish();
 
         for (String[] row : fishingGrid) {
@@ -78,7 +76,13 @@ public class FishingGame {
                 row[j] = "[ ]"; // Semua kotak kosong
             }
         }
-        fishingGrid[fishRow][fishCol] = "[F]"; // Tempatkan ikan dengan logo F
+
+        for (int i = 0; i < inventory.getEquippedFishingRod().getChance(); i++) {
+            int fishRow = random.nextInt(fishingGridRow);
+            int fishCol = random.nextInt(fishingGridCol);
+            fishingGrid[fishRow][fishCol] = "[F]";
+        }
+
     }
 
     // Menampilkan isi grid

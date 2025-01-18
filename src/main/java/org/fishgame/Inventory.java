@@ -32,6 +32,10 @@ public class Inventory {
         }
     }
 
+    public int equipFishingRodChance() {
+        return equippedFishingRod.getChance();
+    }
+
     public FishingRod getEquippedFishingRod() {
         return equippedFishingRod;
     }

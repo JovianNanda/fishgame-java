@@ -9,11 +9,13 @@ abstract public class FishingRod {
     private String name;
     private int price;
     private FishingRodGrade grade;
+    private int chance;
 
-    public FishingRod(String name, int price, FishingRodGrade grade) {
+    public FishingRod(String name, int price, FishingRodGrade grade, int chance) {
         this.name = name;
         this.price = price;
         this.grade = grade;
+        this.chance = chance;
     }
 
     // Setter
@@ -29,6 +31,10 @@ abstract public class FishingRod {
         this.grade = grade;
     }
 
+    public void setChance(int chance) {
+        this.chance = chance;
+    }
+
     // Getter
     public String getName() {
         return name;
@@ -40,6 +46,10 @@ abstract public class FishingRod {
 
     public String getGrade() {
         return grade.toString();
+    }
+
+    public int getChance() {
+        return chance;
     }
 
 }
