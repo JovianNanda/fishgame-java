@@ -12,7 +12,7 @@ import fish.Fish;
 import fish.RedSnapper;
 import fish.Swordfish;
 import fish.Tuna;
-
+import fishingrod.FishingRod;
 
 public class FishingGame {
 
@@ -24,6 +24,7 @@ public class FishingGame {
     private Fish fishInGrid;
 
     private Shop shop = new Shop();
+    private Inventory inventory = new Inventory();
 
     public FishingGame() {
         this.fishingGrid = new String[fishingGridRow][fishingGridCol]; // Ukuran grid 2x3
@@ -36,7 +37,8 @@ public class FishingGame {
         System.out.println("Gold: " + gold);
         System.out.println("1. Fishing");
         System.out.println("2. Shop");
-        System.out.println("3. Exit");
+        System.out.println("3. Inventory");
+        System.out.println("4. Exit");
         System.out.println("=========================");
         System.out.print("Pilihan: ");
         String choice = scanner.nextLine();
@@ -164,7 +166,7 @@ public class FishingGame {
             }
         }
     }
-    
+
     public void shopMenu() {
         System.out.print("\nYour Current Gold: " + gold);
         shop.displayFishingRods();
@@ -172,8 +174,23 @@ public class FishingGame {
         int choice = Integer.parseInt(scanner.nextLine());
         boolean success = shop.purchaseFishingRod(choice, gold);
         if (success) {
-            gold -= shop.getFishingRodList().get(choice - 1).getPrice();
+            FishingRod purchasedRod = shop.getFishingRodList().get(choice - 1);
+            inventory.addFishingRod(purchasedRod);
+            gold -= purchasedRod.getPrice();
             System.out.println("Gold left: " + gold);
+        }
+    }
+
+    public void inventoryMenu() {
+        System.out.println("\n=== Inventory ===");
+        inventory.displayInventory(); // Menampilkan daftar fishing rod yang dimiliki
+
+        System.out.print("\nChoose a fishing rod to equip (enter the number): ");
+        try {
+            int equipIndex = Integer.parseInt(scanner.nextLine());
+            inventory.equipFishingRod(equipIndex); // Memilih dan mengatur fishing rod berdasarkan input pengguna
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a valid number.");
         }
     }
 
@@ -186,6 +203,9 @@ public class FishingGame {
             } else if (Objects.equals(choice, "2")) {
                 game.shopMenu();
             } else if (Objects.equals(choice, "3")) {
+                game.inventoryMenu();
+            } else if (Objects.equals(choice, "4")) {
+                System.out.println("Thank you for playing Fishing Game!");
                 break;
             } else {
                 System.out.println("Invalid choice. Please select again.");
