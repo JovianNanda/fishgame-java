@@ -2,6 +2,6 @@ package fish;
 
 public class Swordfish extends Fish {
     public Swordfish() {
-        super("Swordfish", 40, FishGrade.LEGENDARY, 3);
+        super("Swordfish", 150, FishGrade.LEGENDARY, 5);
     }
 }

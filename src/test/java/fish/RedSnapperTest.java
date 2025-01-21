@@ -9,7 +9,7 @@ public class RedSnapperTest {
     public void testRedSnapperAttributes() {
         RedSnapper redsnapper = new RedSnapper();
         assertEquals("Red Snapper", redsnapper.getName());
-        assertEquals(50, redsnapper.getGold());
+        assertEquals(65, redsnapper.getGold());
         assertEquals("RARE", redsnapper.getGrade());
     }
 }

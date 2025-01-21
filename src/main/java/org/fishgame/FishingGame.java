@@ -17,7 +17,7 @@ import fishingrod.FishingRod;
 public class FishingGame {
 
     private final String[][] fishingGrid;
-    private int gold;
+
     private final Scanner scanner = new Scanner(System.in);
     private final int fishingGridRow = 2;
     private final int fishingGridCol = 3;
@@ -25,17 +25,17 @@ public class FishingGame {
 
     private Shop shop = new Shop();
     private Inventory inventory = new Inventory();
+    private final GameData gameData = new GameData(); // Gunakan GameData
 
     public FishingGame() {
         this.fishingGrid = new String[fishingGridRow][fishingGridCol]; // Ukuran grid 2x3
-        this.gold = 20; // Inisialisasi gold
     }
 
     // Display Menu
     public String displayMenu() {
         System.out.println("\n=== Menu Fishing Game ===");
-        System.out.println("Gold: " + gold);
-        System.out.println("Fishing Rod: " + inventory.getEquippedFishingRod().getName());
+        System.out.println("Gold: " + gameData.getGold());
+        System.out.println("Fishing Rod: " + gameData.getInventory().getEquippedFishingRod().getName());
         System.out.println("1. Fishing");
         System.out.println("2. Shop");
         System.out.println("3. Inventory");
@@ -77,10 +77,10 @@ public class FishingGame {
             }
         }
 
-        for (int i = 0; i < inventory.getEquippedFishingRod().getChance(); i++) {
+        for (int i = 0; i < gameData.getInventory().getEquippedFishingRod().getChance(); i++) {
             int fishRow = random.nextInt(fishingGridRow);
             int fishCol = random.nextInt(fishingGridCol);
-            fishingGrid[fishRow][fishCol] = "[ ]";
+            fishingGrid[fishRow][fishCol] = "[F]";
         }
 
     }
@@ -95,7 +95,7 @@ public class FishingGame {
         for (int i = 0; i < fishingGrid.length; i++) {
             System.out.print("[" + (i + 1) + "]");
             for (int j = 0; j < fishingGrid[i].length; j++) {
-                System.out.print(fishingGrid[i][j]);
+                System.out.print("[ ]"); // menampilkan semua kotak kosong
             }
             System.out.println();
         }
@@ -157,42 +157,44 @@ public class FishingGame {
             if (fishingGrid[row][col].equals("[F]")) {
                 fishInGrid = getRandomFish(); // Dapatkan ikan acak berdasarkan chance
                 System.out.println("You got a " + fishInGrid.getName() + "!" + " Grade: " + fishInGrid.getGrade());
-                gold += fishInGrid.getGold();
-                System.out.println("You earned Gold: " + gold);
+                gameData.addGoldFromFish(fishInGrid);
+                System.out.println("You earned Gold: " + gameData.getGold());
                 fishCaught = true;
             } else {
                 attempt--;
                 System.out.println("You got nothing! Retry attempts left: " + attempt);
                 if (attempt == 0) {
-                    gold -= 5; // Penalti jika tidak menangkap ikan
-                    System.out.println("Gold: " + gold);
+                    gameData.subtractGold(2); // Penalti jika tidak menangkap ikan
+                    System.out.println("Gold: " + gameData.getGold());
                 }
             }
         }
+
+        gameData.saveGameData(); // Simpan data setelah memancing
     }
 
     public void shopMenu() {
-        System.out.print("\nYour Current Gold: " + gold);
+        System.out.print("\nYour Current Gold: " + gameData.getGold());
         shop.displayFishingRods();
         System.out.print("Choose a fishing rod to buy: ");
         int choice = Integer.parseInt(scanner.nextLine());
-        boolean success = shop.purchaseFishingRod(choice, gold);
+        boolean success = shop.purchaseFishingRod(choice, gameData.getGold());
         if (success) {
             FishingRod purchasedRod = shop.getFishingRodList().get(choice - 1);
-            inventory.addFishingRod(purchasedRod);
-            gold -= purchasedRod.getPrice();
-            System.out.println("Gold left: " + gold);
+            gameData.getInventory().addFishingRod(purchasedRod);
+            gameData.subtractGold(purchasedRod.getPrice());
+            System.out.println("Gold left: " + gameData.getGold());
+            gameData.saveGameData();
         }
     }
 
     public void inventoryMenu() {
-        System.out.println("\n=== Inventory ===");
-        inventory.displayInventory(); // Menampilkan daftar fishing rod yang dimiliki
+        gameData.getInventory().displayInventory();
 
         System.out.print("\nChoose a fishing rod to equip (enter the number): ");
         try {
             int equipIndex = Integer.parseInt(scanner.nextLine());
-            inventory.equipFishingRod(equipIndex); // Memilih dan mengatur fishing rod berdasarkan input pengguna
+            gameData.getInventory().equipFishingRod(equipIndex); // Perbarui fishing rod yang dilengkapi
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a valid number.");
         }

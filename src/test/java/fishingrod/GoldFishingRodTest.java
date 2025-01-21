@@ -9,7 +9,7 @@ public class GoldFishingRodTest {
     public void testGoldFishingRodAttributes() {
         GoldFishingRod goldFishingRod = new GoldFishingRod();
         assertEquals("Gold Fishing Rod", goldFishingRod.getName());
-        assertEquals(30, goldFishingRod.getPrice());
+        assertEquals(250, goldFishingRod.getPrice());
         assertEquals("GOLD", goldFishingRod.getGrade());
     }
 }

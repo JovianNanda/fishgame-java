@@ -2,6 +2,6 @@ package fish;
 
 public class CommonCarp extends Fish {
     public CommonCarp() {
-        super("Common Carp", 10, FishGrade.COMMON,45);
+        super("Common Carp", 15, FishGrade.COMMON,60);
     }
 }

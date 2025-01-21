@@ -9,7 +9,7 @@ public class CommonCarpTest {
     public void testCommonCarpAttributes() {
         CommonCarp commoncarp = new CommonCarp();
         assertEquals("Common Carp", commoncarp.getName());
-        assertEquals(10, commoncarp.getGold());
+        assertEquals(15, commoncarp.getGold());
         assertEquals("COMMON", commoncarp.getGrade());
     }
 }
