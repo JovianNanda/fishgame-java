@@ -1,4 +1,0 @@
-gold=232
-rod=Basic Fishing Rod,1,BASIC
-rod=Diamond Fishing Rod,4,DIAMOND
-equipped=Diamond Fishing Rod,4,DIAMOND
