@@ -9,7 +9,7 @@ public class BasicFishingRodTest {
     public void testBasicFishingRodAttributes() {
         BasicFishingRod basicFishingRod = new BasicFishingRod();
         assertEquals("Basic Fishing Rod", basicFishingRod.getName());
-        assertEquals(10, basicFishingRod.getPrice());
+        assertEquals(100, basicFishingRod.getPrice());
         assertEquals("BASIC", basicFishingRod.getGrade());
     }
 }

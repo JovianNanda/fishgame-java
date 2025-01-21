@@ -29,7 +29,6 @@ public class FishingGame {
 
     public FishingGame() {
         this.fishingGrid = new String[fishingGridRow][fishingGridCol]; // Ukuran grid 2x3
-
     }
 
     // Display Menu
@@ -96,7 +95,7 @@ public class FishingGame {
         for (int i = 0; i < fishingGrid.length; i++) {
             System.out.print("[" + (i + 1) + "]");
             for (int j = 0; j < fishingGrid[i].length; j++) {
-                System.out.print(fishingGrid[i][j]);
+                System.out.print("[ ]"); // menampilkan semua kotak kosong
             }
             System.out.println();
         }
@@ -165,7 +164,7 @@ public class FishingGame {
                 attempt--;
                 System.out.println("You got nothing! Retry attempts left: " + attempt);
                 if (attempt == 0) {
-                    gameData.subtractGold(5); // Penalti jika tidak menangkap ikan
+                    gameData.subtractGold(2); // Penalti jika tidak menangkap ikan
                     System.out.println("Gold: " + gameData.getGold());
                 }
             }

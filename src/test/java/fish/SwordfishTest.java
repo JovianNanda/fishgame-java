@@ -9,7 +9,7 @@ public class SwordfishTest {
     public void testSwordfishAttributes() {
         Swordfish swordfish = new Swordfish();
         assertEquals("Swordfish", swordfish.getName());
-        assertEquals(40, swordfish.getGold());
-        assertEquals("RARE", swordfish.getGrade());
+        assertEquals(150, swordfish.getGold());
+        assertEquals("LEGENDARY", swordfish.getGrade());
     }
 }

@@ -9,7 +9,7 @@ public class TunaTest {
     public void testTunaAttributes() {
         Tuna tuna = new Tuna();
         assertEquals("Tuna", tuna.getName());
-        assertEquals(30, tuna.getGold());
-        assertEquals("UNCOMMON", tuna.getGrade());
+        assertEquals(80, tuna.getGold());
+        assertEquals("EPIC", tuna.getGrade());
     }
 }
